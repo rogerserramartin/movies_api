@@ -15,10 +15,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/", "index", "/css/*", "/js/*").permitAll() //whitelisting to prevent asking credentials
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic(); //basic authentication
         //localhost:8080/api/v1/movies/{id} to see the popup
+        //Basic dXNlcjpiZmU2NWVhOC1lZWJiLTQ1OGYtYmUyYS1lYWUxMjNkN2NhOTg=   Example of Basic64 Encryption
     }
 }
