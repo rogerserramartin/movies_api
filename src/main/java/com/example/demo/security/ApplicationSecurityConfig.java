@@ -12,6 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static com.example.demo.security.ApplicationUserRole.*;
+
 @Configuration //this indicates that this class is a configuration one for SpringBoot
 @EnableWebSecurity // It allows Spring to find (it's a @Configuration and, therefore, @Component ) and automatically apply the class to the global WebSecurity .
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -44,11 +46,19 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails pepeUser = User.builder()
                 .username("pepe")
                 .password(passwordEncoder.encode("123")) // Encoded password does not look like BCrypt -> this is what happens without passwordEncoder
-                .roles("MEMBER") //ROLE_MEMBER
+                .roles(CUSTOMER.name()) //ROLE_CUSTOMER
                 .build();
 
+        UserDetails milagrosUser = User.builder()
+                .username("milagros")
+                .password(passwordEncoder.encode("1234"))
+                .roles(ADMIN.name()) //ROLE_ADMIN
+                .build();
+
+
         return new InMemoryUserDetailsManager(
-                pepeUser
+                pepeUser,
+                milagrosUser
         );
     }
 }
