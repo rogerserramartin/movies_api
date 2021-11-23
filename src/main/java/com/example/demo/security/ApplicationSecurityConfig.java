@@ -31,7 +31,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "index", "/css/*", "/js/*").permitAll() //whitelisting to prevent asking credentials
-                .antMatchers("/api/v1/customers**").hasRole(CUSTOMER.name()) //only customers will see the movies
+                .antMatchers("/api/**").hasRole(CUSTOMER.name()) //only customers will see the movies
                 .anyRequest()
                 .authenticated()
                 .and()
